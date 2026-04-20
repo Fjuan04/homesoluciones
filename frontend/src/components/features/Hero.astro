@@ -1,0 +1,84 @@
+---
+import Button from '../ui/Button.astro';
+---
+
+<section id="inicio" class="relative min-h-screen flex items-center pt-24 overflow-hidden">
+  <div class="max-w-[1440px] mx-auto px-6 md:px-12 w-full grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+    
+    <!-- Left Content -->
+    <div class="relative z-10 space-y-8 reveal">
+      <div class="flex items-center gap-4">
+        <span class="w-12 h-[1px] bg-primary"></span>
+        <span class="text-xs uppercase tracking-[0.4em] text-primary font-medium">Arquitectura & Diseño</span>
+      </div>
+      
+      <h1 class="text-5xl md:text-7xl lg:text-8xl leading-[1.1] font-medium italic">
+        Espacios que <br/>
+        <span class="text-primary not-italic">Trascienden</span>
+      </h1>
+      
+      <p class="max-w-md text-lg text-light-bg/70 font-light leading-relaxed">
+        Especialistas en remodelación de interiores de alto impacto. Fusionamos la elegancia obsidian con acabados de lujo para crear hogares excepcionales.
+      </p>
+      
+      <div class="flex flex-col sm:flex-row items-center gap-6 pt-4">
+        <Button variant="primary" size="lg" href="#proyectos">
+          Ver Proyectos
+        </Button>
+        <Button variant="ghost" size="lg" href="#proceso" className="group">
+          Nuestro Proceso
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 ml-2 transition-transform group-hover:translate-x-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14m-7-7 7 7-7 7"/></svg>
+        </Button>
+      </div>
+
+      <!-- Stats Quick View -->
+      <div class="grid grid-cols-3 gap-8 pt-12 border-t border-white/10">
+        <div>
+          <p class="text-2xl font-serif">150+</p>
+          <p class="text-[10px] uppercase tracking-widest text-light-bg/40">Proyectos</p>
+        </div>
+        <div>
+          <p class="text-2xl font-serif">12</p>
+          <p class="text-[10px] uppercase tracking-widest text-light-bg/40">Años Exp.</p>
+        </div>
+        <div>
+          <p class="text-2xl font-serif">100%</p>
+          <p class="text-[10px] uppercase tracking-widest text-light-bg/40">Calidad</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right Image -->
+    <div class="relative h-[60vh] lg:h-[80vh] reveal">
+      <div class="absolute -inset-4 border border-white/5 translate-x-4 translate-y-4"></div>
+      <div class="relative h-full w-full overflow-hidden">
+        <img 
+          src="/images/hero.webp" 
+          alt="Interior de lujo Home Soluciones" 
+          class="h-full w-full object-cover filter brightness-90 contrast-110 transition-transform duration-[2s] hover:scale-105"
+        />
+        <!-- Gradient Overlay -->
+        <div class="absolute inset-0 bg-gradient-to-t from-dark-bg via-transparent to-transparent opacity-60"></div>
+      </div>
+      
+      <!-- Floating Label -->
+      <div class="absolute -bottom-6 -left-6 bg-dark-section p-8 border border-white/10 hidden md:block">
+        <p class="text-xs uppercase tracking-widest text-primary mb-2">Ambiente Curado</p>
+        <p class="text-xl font-serif">Apartamento Luxury <br/> Ciudad de México</p>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Animated Scroll Down -->
+  <div class="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-4 opacity-50">
+    <span class="text-[10px] uppercase tracking-[0.5em] vertical-text">Scroll</span>
+    <div class="w-[1px] h-12 bg-gradient-to-b from-primary to-transparent animate-bounce"></div>
+  </div>
+</section>
+
+<style>
+  .vertical-text {
+    writing-mode: vertical-rl;
+  }
+</style>

@@ -1,0 +1,60 @@
+<div id="cursor-dot" class="fixed w-2 h-2 bg-primary rounded-full pointer-events-none z-[9999] -translate-x-1/2 -translate-y-1/2 transition-transform duration-100 ease-out"></div>
+<div id="cursor-ring" class="fixed w-10 h-10 border border-primary/30 rounded-full pointer-events-none z-[9998] -translate-x-1/2 -translate-y-1/2 transition-all duration-300 ease-out"></div>
+
+<script>
+  const dot = document.getElementById('cursor-dot');
+  const ring = document.getElementById('cursor-ring');
+  
+  let mouseX = 0;
+  let mouseY = 0;
+  let ringX = 0;
+  let ringY = 0;
+
+  const moveCursor = (e: MouseEvent) => {
+    mouseX = e.clientX;
+    mouseY = e.clientY;
+    
+    if (dot) {
+      dot.style.left = `${mouseX}px`;
+      dot.style.top = `${mouseY}px`;
+    }
+    if (ring) {
+      ring.style.left = `${mouseX}px`;
+      ring.style.top = `${mouseY}px`;
+    }
+  };
+
+  window.addEventListener('mousemove', moveCursor);
+
+  // Hide cursor when it leaves the window
+  document.addEventListener('mouseleave', () => {
+    if (dot && ring) {
+      dot.style.opacity = '0';
+      ring.style.opacity = '0';
+    }
+  });
+
+  document.addEventListener('mouseenter', () => {
+    if (dot && ring) {
+      dot.style.opacity = '1';
+      ring.style.opacity = '1';
+    }
+  });
+</script>
+
+<style>
+  /* Use hardware acceleration for smoother movement */
+  #cursor-dot, #cursor-ring {
+    will-change: left, top, opacity;
+  }
+  
+  /* Optional: hide default cursor for extra premium feel */
+  @media (pointer: fine) {
+    html {
+      cursor: none;
+    }
+    a, button {
+      cursor: none;
+    }
+  }
+</style>

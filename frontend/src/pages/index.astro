@@ -1,54 +1,27 @@
 ---
 import Layout from '@/layouts/Layout.astro';
-import Header from '@/components/layout/Header.astro';
-import Button from '@/components/ui/Button.astro';
+import Nav from '@/components/layout/Nav.astro';
+import Hero from '@/components/features/Hero.astro';
+import Stats from '@/components/features/Stats.astro';
+import Services from '@/components/features/Services.astro';
+import Process from '@/components/features/Process.astro';
+import Showroom from '@/components/features/Showroom.astro';
+import Blog from '@/components/features/Blog.astro';
+import Contact from '@/components/features/Contact.astro';
+import Footer from '@/components/layout/Footer.astro';
 ---
 
-<Layout title="Inicio">
-	<Header />
+<Layout title="Diseño de Interiores y Remodelaciones de Lujo">
+	<Nav />
 	
-	<main class="relative min-h-screen pt-32 flex flex-col items-center justify-center text-center px-6 overflow-hidden">
-		<!-- Decoración de fondo -->
-		<div class="absolute top-0 -z-10 h-full w-full bg-white dark:bg-black">
-			<div class="absolute bottom-auto left-auto right-0 top-0 h-[500px] w-[500px] -translate-x-[30%] translate-y-[20%] rounded-full bg-[rgba(173,109,244,0.5)] opacity-50 blur-[80px]"></div>
-		</div>
-
-		<section class="max-w-4xl mx-auto space-y-8">
-			<div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-50 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400 text-xs font-bold tracking-wider uppercase border border-indigo-100 dark:border-indigo-800">
-				<span>Novedad</span>
-				<div class="w-1 h-1 rounded-full bg-indigo-600"></div>
-				<span class="opacity-80">Frontend Profesional con Astro</span>
-			</div>
-
-			<h1 class="text-5xl md:text-7xl font-extrabold tracking-tight leading-[1.1]">
-				Soluciones Digitales <br /> 
-				<span class="bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 to-purple-600">Premium y Modernas</span>
-			</h1>
-
-			<p class="text-lg md:text-xl text-slate-600 dark:text-slate-400 max-w-2xl mx-auto leading-relaxed">
-				Construyendo el futuro de la web con una arquitectura sólida en NestJS y un frontend ultrarrápido con Astro.
-			</p>
-
-			<div class="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4">
-				<Button size="lg" className="w-full sm:w-auto">Comenzar ahora</Button>
-				<Button variant="outline" size="lg" className="w-full sm:w-auto">Saber más</Button>
-			</div>
-		</section>
-
-		<footer class="mt-32 pb-12 text-sm text-slate-400">
-			&copy; {new Date().getFullYear()} HomeSoluciones. Todos los derechos reservados.
-		</footer>
+	<main>
+		<Hero />
+		<Stats />
+		<Services />
+		<Process />
+		<Showroom />
+		<Blog />
+		<Contact />
 	</main>
+	<Footer />
 </Layout>
-
-<style>
-	/* Animación sutil de entrada */
-	section {
-		animation: fadeIn 0.8s ease-out forwards;
-	}
-
-	@keyframes fadeIn {
-		from { opacity: 0; transform: translateY(20px); }
-		to { opacity: 1; transform: translateY(0); }
-	}
-</style>

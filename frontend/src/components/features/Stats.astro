@@ -1,0 +1,35 @@
+---
+const stats = [
+  { value: '150+', label: 'Proyectos Realizados', sub: 'Residenciales & Comerciales' },
+  { value: '12', label: 'Años de Trayectoria', sub: 'Excelencia en el mercado' },
+  { value: '50+', label: 'Ambientes Curados', sub: 'Diseños únicos y premium' },
+  { value: '100%', label: 'Satisfacción', sub: 'Compromiso total con el cliente' }
+];
+---
+
+<section class="bg-dark-section py-20 border-y border-white/5 relative overflow-hidden">
+  <!-- Subtle pattern placeholder -->
+  <div class="absolute inset-0 opacity-[0.02] pointer-events-none">
+    <div class="h-full w-full" style="background-image: radial-gradient(circle, white 1px, transparent 1px); background-size: 40px 40px;"></div>
+  </div>
+
+  <div class="max-w-[1440px] mx-auto px-6 md:px-12 relative z-10">
+    <div class="grid grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8">
+      {stats.map((stat) => (
+        <div class="reveal space-y-4 group">
+          <p class="text-4xl md:text-5xl lg:text-6xl font-serif text-primary italic transition-transform duration-500 group-hover:-translate-y-2">
+            {stat.value}
+          </p>
+          <div class="space-y-1">
+            <p class="text-sm font-medium uppercase tracking-widest text-light-bg">
+              {stat.label}
+            </p>
+            <p class="text-[10px] uppercase tracking-widest text-light-bg/40 leading-tight">
+              {stat.sub}
+            </p>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
