@@ -13,7 +13,7 @@ const services = [
     link: '#contacto'
   },
   {
-    title: 'Arquitectura Obsidian',
+    title: 'Arquitectura',
     desc: 'Línea exclusiva de diseño minimalista con texturas y materiales oscuros.',
     link: '#contacto'
   },
@@ -35,7 +35,7 @@ const services = [
           <span class="text-xs uppercase tracking-[0.4em] text-primary font-medium">Expertise</span>
         </div>
         <h2 class="text-4xl md:text-6xl font-medium">
-          Servicios de Curaduría <br/> 
+          Servicios de Gestión <br/> 
           <span class="italic text-primary">& Diseño</span>
         </h2>
       </div>
@@ -49,8 +49,10 @@ const services = [
         <div class="bg-dark-bg p-10 space-y-8 flex flex-col justify-between group transition-colors duration-500 hover:bg-dark-section reveal">
           <div class="space-y-4">
             <span class="text-[10px] text-primary tracking-widest font-bold font-sans">0{index + 1}</span>
-            <h3 class="text-2xl font-serif">{service.title}</h3>
-            <p class="text-sm text-light-bg/50 leading-relaxed">
+            <h3 class="text-2xl font-serif truncate" title={service.title}>
+              {service.title}
+            </h3>
+            <p class="text-sm text-light-bg/50 leading-relaxed line-clamp-3" title={service.desc}>
               {service.desc}
             </p>
           </div>
@@ -65,7 +67,7 @@ const services = [
 
     <div class="mt-20 text-center reveal">
       <Button variant="outline" size="lg" href="#contacto">
-        Consultoría Personalizada
+        Asesoría Personalizada
       </Button>
     </div>
 
