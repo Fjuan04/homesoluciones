@@ -1,28 +1,28 @@
 ---
 import Button from '../ui/Button.astro';
 
-const services = [
-  {
-    title: 'Remodelación Integral',
-    desc: 'Transformación total de espacios residenciales con acabados de alta gama.',
-    link: '#contacto'
-  },
-  {
-    title: 'Diseño de Interiores',
-    desc: 'Curaduría editorial para crear ambientes sofisticados y funcionales.',
-    link: '#contacto'
-  },
-  {
-    title: 'Arquitectura',
-    desc: 'Línea exclusiva de diseño minimalista con texturas y materiales oscuros.',
-    link: '#contacto'
-  },
-  {
-    title: 'Gestión de Proyectos',
-    desc: 'Supervisión técnica de principio a fin para garantizar resultados perfectos.',
-    link: '#contacto'
+const API_URL = import.meta.env.API_URL || 'http://localhost:3000/api';
+
+let services = [];
+
+try {
+  const response = await fetch(`${API_URL}/services`);
+  if (response.ok) {
+    services = await response.json();
   }
-];
+} catch (error) {
+  console.error("Error fetching services:", error);
+}
+
+// Fallback
+if (services.length === 0) {
+  services = [
+    { title: 'Remodelación Integral', desc: 'Transformación total de espacios residenciales con acabados de alta gama.', link: '#contacto' },
+    { title: 'Diseño de Interiores', desc: 'Curaduría editorial para crear ambientes sofisticados y funcionales.', link: '#contacto' },
+    { title: 'Arquitectura', desc: 'Línea exclusiva de diseño minimalista con texturas y materiales oscuros.', link: '#contacto' },
+    { title: 'Gestión de Proyectos', desc: 'Supervisión técnica de principio a fin para garantizar resultados perfectos.', link: '#contacto' }
+  ];
+}
 ---
 
 <section id="servicios" class="py-32 relative">
@@ -35,7 +35,7 @@ const services = [
           <span class="text-xs uppercase tracking-[0.4em] text-primary font-medium">Expertise</span>
         </div>
         <h2 class="text-4xl md:text-6xl font-medium">
-          Servicios de Gestión <br/> 
+          Servicios de Remodelación <br/> 
           <span class="italic text-primary">& Diseño</span>
         </h2>
       </div>

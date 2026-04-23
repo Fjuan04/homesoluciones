@@ -2,9 +2,10 @@ import { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import Layout from './components/Layout';
 import Dashboard from './pages/Dashboard';
-import LandingManager from './pages/LandingManager';
+import StatsManager from './pages/StatsManager';
 import ServicesManager from './pages/ServicesManager';
 import BlogManager from './pages/BlogManager';
+import ProjectsManager from './pages/ProjectsManager';
 import Login from './pages/Login';
 
 function App() {
@@ -30,8 +31,9 @@ function App() {
               <Layout>
                 <Routes>
                   <Route path="/" element={<Dashboard />} />
-                  <Route path="/landing" element={<LandingManager />} />
+                  <Route path="/stats" element={<StatsManager />} />
                   <Route path="/services" element={<ServicesManager />} />
+                  <Route path="/projects" element={<ProjectsManager />} />
                   <Route path="/blog" element={<BlogManager />} />
                   <Route path="*" element={<Navigate to="/" replace />} />
                 </Routes>

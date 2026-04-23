@@ -4,34 +4,44 @@ Esta guía detalla las estructuras de datos (JSON) necesarias para alimentar din
 
 ---
 
-## 1. Estructura de Datos por Componente
+## 1. Autenticación (Solo para CMS Admin)
 
-### 1.1 Estadísticas (`Stats.astro`)
+Las rutas de gestión (POST, PATCH, DELETE) requieren autenticación mediante JWT.
+
+- **Login:** `POST /api/auth/login`
+- **Header:** `Authorization: Bearer <token>`
+
+---
+
+## 2. Estructura de Datos por Componente
+
+### 2.1 Estadísticas (`Stats.astro`)
 Utilizado para mostrar logros numéricos de la empresa.
-**Endpoint sugerido:** `/api/stats`
 
+**Endpoints:**
+- Lista completa: `GET /api/stats`
+- Crear: `POST /api/stats` 🔒
+- Actualizar: `PATCH /api/stats/:id` 🔒
+- Eliminar: `DELETE /api/stats/:id` 🔒
+
+**Estructura:**
 ```json
-[
-  {
-    "value": "150+",
-    "label": "Proyectos Realizados",
-    "sub": "Residenciales & Comerciales"
-  },
-  {
-    "value": "12",
-    "label": "Años de Trayectoria",
-    "sub": "Excelencia en el mercado"
-  }
-]
+{
+  "id": 1,
+  "value": "150+",
+  "label": "Proyectos Realizados",
+  "sub": "Residenciales & Comerciales"
+}
 ```
 
-### 1.2 Servicios (`Services.astro`)
+### 2.2 Servicios (`Services.astro`)
 Lista los servicios principales ofrecidos.
-**Endpoint sugerido:** `/api/services`
+**Endpoint:** `GET /api/services`
 
 ```json
 [
   {
+    "id": 1,
     "title": "Remodelación Integral",
     "desc": "Transformación total de espacios residenciales con acabados de alta gama.",
     "link": "#contacto"
@@ -39,27 +49,35 @@ Lista los servicios principales ofrecidos.
 ]
 ```
 
-### 1.3 Showroom / Proyectos (`Showroom.astro`)
-Galería visual de proyectos realizados o ambientes curados.
-**Endpoint sugerido:** `/api/projects`
+### 2.3 Proyectos y Hero (`Showroom.astro` & `Hero.astro`)
+Galería visual de proyectos y proyecto destacado para el Hero.
 
+**Endpoints:** 
+- Lista completa: `GET /api/projects`
+- Proyecto destacado (Hero): `GET /api/projects/featured`
+
+**Estructura del Proyecto:**
 ```json
-[
-  {
-    "title": "Living Obsidian",
-    "category": "Sala Estar",
-    "image": "https://tusistema.com/uploads/living.webp"
-  }
-]
+{
+  "id": 1,
+  "title": "Apartamento Obsidian",
+  "category": "Arquitectura",
+  "image": "https://tusistema.com/uploads/project1.webp",
+  "location": "Poblado",
+  "city": "Medellín",
+  "country": "Colombia",
+  "isFeatured": true
+}
 ```
 
-### 1.4 Proceso de Trabajo (`Process.astro`)
+### 2.4 Proceso de Trabajo (`Process.astro`)
 Pasos del método de trabajo.
-**Endpoint sugerido:** `/api/process-steps`
+**Endpoint:** `GET /api/process-steps`
 
 ```json
 [
   {
+    "id": 1,
     "num": "01",
     "title": "Consultoría Especializada",
     "desc": "Entendemos tu visión y analizamos el potencial del espacio."
@@ -67,13 +85,14 @@ Pasos del método de trabajo.
 ]
 ```
 
-### 1.5 Blog / Conocimiento (`Blog.astro`)
+### 2.5 Blog / Conocimiento (`Blog.astro`)
 Artículos técnicos y tendencias.
-**Endpoint sugerido:** `/api/blog/latest`
+**Endpoint:** `GET /api/blog/latest`
 
 ```json
 [
   {
+    "id": 1,
     "title": "Tendencias en Cocinas Obsidian 2026",
     "date": "24 Abril, 2026",
     "cat": "Diseño",
@@ -84,40 +103,34 @@ Artículos técnicos y tendencias.
 
 ---
 
-## 2. Ejemplo de Implementación Técnica (Integración)
+## 3. Ejemplo de Implementación Técnica (Integración)
 
 Para integrar estas APIs en los componentes Astro, se recomienda reemplazar el arreglo estático por una llamada `fetch` nativa en el frontmatter del componente.
 
-### Ejemplo: Integración en `Services.astro`
+### Ejemplo: Integración del Proyecto Destacado en `Hero.astro`
 
 ```astro
 ---
-// src/components/features/Services.astro
-import Button from '../ui/Button.astro';
+// src/components/sections/Hero.astro
+const API_URL = import.meta.env.API_URL || 'http://localhost:3000/api';
 
-// 1. Definir la URL de tu API (usando variables de entorno preferiblemente)
-const API_URL = import.meta.env.API_URL || 'https://tu-api.com/api';
-
-// 2. Consumir los datos durante la fase de Build (SSG)
-const response = await fetch(`${API_URL}/services`);
-const services = await response.json();
-
-// 3. (Opcional) Manejo de errores o fallback
-if (!services || services.length === 0) {
-  console.warn("No se pudieron cargar los servicios.");
-}
+const response = await fetch(`${API_URL}/projects/featured`);
+const featuredProject = await response.json();
 ---
 
-<section id="servicios">
-  <!-- El resto del HTML permanece igual, mapeando el arreglo 'services' -->
-  {services.map((service, index) => (
-    <div>{service.title}</div>
-  ))}
+<section>
+  {featuredProject && (
+    <>
+      <h1>{featuredProject.title}</h1>
+      <p>{featuredProject.location}, {featuredProject.city}, {featuredProject.country}</p>
+      <img src={featuredProject.image} alt={featuredProject.title} />
+    </>
+  )}
 </section>
 ```
 
 > [!TIP]
-> **Seguridad:** Recuerda que al usar `fetch` en el frontmatter de Astro (entre los guiones `---`), la llamada se ejecuta en **tiempo de compilación** (servidor). Las credenciales o API Keys no se exponen al cliente a menos que las pases explícitamente a un componente hidratado.
+> **Seguridad:** Recuerda que al usar `fetch` en el frontmatter de Astro (entre los guiones `---`), la llamada se ejecuta en **tiempo de compilación** (SSG) o en el servidor (SSR). Las credenciales o API Keys no se exponen al cliente.
 
 > [!IMPORTANT]
-> **Imágenes:** Para un rendimiento óptimo, asegúrate de que las URLs de las imágenes que devuelva el backend apunten a versiones optimizadas (WebP/AVIF) o utiliza un servicio de procesamiento de imágenes.
+> **Imágenes:** Para un rendimiento óptimo, asegúrate de que las URLs de las imágenes que devuelva el backend apunten a versiones optimizadas (WebP/AVIF).

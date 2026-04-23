@@ -1,5 +1,36 @@
 ---
 import Button from '../ui/Button.astro';
+
+const API_URL = import.meta.env.API_URL || 'http://localhost:3000/api';
+
+let featuredProject = null;
+
+try {
+  const response = await fetch(`${API_URL}/projects/featured`);
+  if (response.ok) {
+    featuredProject = await response.json();
+  }
+} catch (error) {
+  console.error("Error fetching featured project:", error);
+}
+
+// Fallback data
+const fallbackHero = {
+  title: "Residencia Bosques",
+  location: "Barrio Bosques",
+  city: "Manizales",
+  country: "Colombia",
+  image: "/images/hero.webp"
+};
+
+const displayProject = featuredProject || fallbackHero;
+
+const getImageUrl = (url: string) => {
+  if (!url) return '';
+  if (url.startsWith('http')) return url;
+  const baseUrl = API_URL.replace('/api', '');
+  return `${baseUrl}${url}`;
+};
 ---
 
 <section id="inicio" class="relative min-h-screen flex items-center pt-24 overflow-hidden">
@@ -22,7 +53,7 @@ import Button from '../ui/Button.astro';
       </p>
       
       <div class="flex flex-col sm:flex-row items-center gap-6 pt-4">
-        <Button variant="primary" size="lg" href="#proyectos">
+        <Button variant="primary" size="lg" href="#ambientes">
           Ver Proyectos
         </Button>
         <Button variant="ghost" size="lg" href="#proceso" className="group">
@@ -31,14 +62,14 @@ import Button from '../ui/Button.astro';
         </Button>
       </div>
 
-      <!-- Stats Quick View -->
+      <!-- Stats Quick View (Keep static for now or fetch if needed) -->
       <div class="grid grid-cols-3 gap-8 pt-12 border-t border-white/10">
         <div>
           <p class="text-2xl font-serif">150+</p>
           <p class="text-[10px] uppercase tracking-widest text-light-bg/40">Proyectos</p>
         </div>
         <div>
-          <p class="text-2xl font-serif">12</p>
+          <p class="text-2xl font-serif">15</p>
           <p class="text-[10px] uppercase tracking-widest text-light-bg/40">Años Exp.</p>
         </div>
         <div>
@@ -53,18 +84,17 @@ import Button from '../ui/Button.astro';
       <div class="absolute -inset-4 border border-white/5 translate-x-4 translate-y-4"></div>
       <div class="relative h-full w-full overflow-hidden">
         <img 
-          src="/images/hero.webp" 
-          alt="Interior de lujo Home Soluciones" 
+          src={getImageUrl(displayProject.image)} 
+          alt={displayProject.title} 
           class="h-full w-full object-cover filter brightness-90 contrast-110 transition-transform duration-[2s] hover:scale-105"
         />
         <!-- Gradient Overlay -->
         <div class="absolute inset-0 bg-gradient-to-t from-dark-bg via-transparent to-transparent opacity-60"></div>
       </div>
       
-      <!-- Floating Label -->
       <div class="absolute -bottom-6 -left-6 bg-dark-section p-8 border border-white/10 hidden md:block">
         <p class="text-xs uppercase tracking-widest text-primary mb-2">Proyecto Destacado</p>
-        <p class="text-xl font-serif">Residencia Bosques <br/> Manizales, Colombia</p>
+        <p class="text-xl font-serif">{displayProject.title} <br/> <span class="text-xs opacity-50">{displayProject.location}, {displayProject.city}, {displayProject.country}</span></p>
       </div>
     </div>
 
@@ -81,4 +111,3 @@ import Button from '../ui/Button.astro';
   .vertical-text {
     writing-mode: vertical-rl;
   }
-</style>

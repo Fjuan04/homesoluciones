@@ -1,26 +1,33 @@
 ---
-const environments = [
-  {
-    title: 'Living Obsidian',
-    category: 'Sala Estar',
-    image: '/images/showroom/living.webp'
-  },
-  {
-    title: 'Kitchen Minimal',
-    category: 'Cocina Luxury',
-    image: '/images/showroom/kitchen.webp'
-  },
-  {
-    title: 'Spa Experience',
-    category: 'Baño Principal',
-    image: '/images/showroom/bathroom.webp'
-  },
-  {
-    title: 'Nocturnal Suite',
-    category: 'Habitación Master',
-    image: '/images/showroom/bedroom.webp'
+const API_URL = import.meta.env.API_URL || 'http://localhost:3000/api';
+
+let environments = [];
+
+try {
+  const response = await fetch(`${API_URL}/projects`);
+  if (response.ok) {
+    environments = await response.json();
   }
-];
+} catch (error) {
+  console.error("Error fetching projects:", error);
+}
+
+// Fallback
+if (environments.length === 0) {
+  environments = [
+    { title: 'Living Obsidian', category: 'Sala Estar', image: '/images/showroom/living.webp' },
+    { title: 'Kitchen Minimal', category: 'Cocina Luxury', image: '/images/showroom/kitchen.webp' },
+    { title: 'Spa Experience', category: 'Baño Principal', image: '/images/showroom/bathroom.webp' },
+    { title: 'Nocturnal Suite', category: 'Habitación Master', image: '/images/showroom/bedroom.webp' }
+  ];
+}
+
+const getImageUrl = (url: string) => {
+  if (!url) return '';
+  if (url.startsWith('http')) return url;
+  const baseUrl = API_URL.replace('/api', '');
+  return `${baseUrl}${url}`;
+};
 ---
 
 <section id="ambientes" class="py-32 overflow-hidden bg-dark-bg">
@@ -45,15 +52,15 @@ const environments = [
     {environments.map((item) => (
       <div class="min-w-[85vw] md:min-w-[45vw] lg:min-w-[30vw] aspect-[4/5] relative group snap-center overflow-hidden cursor-none reveal">
         <img 
-          src={item.image} 
+          src={getImageUrl(item.image)} 
           alt={item.title} 
           class="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
         />
         <div class="absolute inset-0 bg-gradient-to-t from-dark-bg via-transparent to-transparent opacity-80 transition-opacity duration-500 group-hover:opacity-90"></div>
         
         <div class="absolute bottom-10 left-10 space-y-2 transform transition-transform duration-500 group-hover:-translate-y-2">
-          <p class="text-[10px] uppercase tracking-[0.4em] text-primary font-bold">{item.category}</p>
-          <h3 class="text-3xl font-serif text-white">{item.title}</h3>
+          <p class="text-[13px] uppercase tracking-[0.4em] text-primary font-bold">{item.category}</p>
+          <h3 class="text-4xl font-serif text-white">{item.title}</h3>
         </div>
 
         <!-- View Details Indicator -->

@@ -9,7 +9,9 @@ import {
   Menu, 
   X, 
   User,
-  Home
+  Home,
+  Layers,
+  BarChart3
 } from 'lucide-react';
 import './Layout.css';
 
@@ -23,7 +25,8 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
 
   const menuItems = [
     { icon: <LayoutDashboard size={20} />, label: 'Dashboard', path: '/' },
-    { icon: <Home size={20} />, label: 'Landing Page', path: '/landing' },
+    { icon: <BarChart3 size={20} />, label: 'Estadísticas', path: '/stats' },
+    { icon: <Layers size={20} />, label: 'Proyectos', path: '/projects' },
     { icon: <Briefcase size={20} />, label: 'Servicios', path: '/services' },
     { icon: <FileText size={20} />, label: 'Blog', path: '/blog' },
     { icon: <Settings size={20} />, label: 'Configuración', path: '/settings' },
