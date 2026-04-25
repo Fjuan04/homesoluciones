@@ -9,6 +9,9 @@
         "write": true,
         "edit": true,
         "bash": true
+      },
+      "permission":{
+        "bash":"ask"
       }
     },
     "change-documenter": {

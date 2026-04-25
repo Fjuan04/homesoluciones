@@ -1,0 +1,24 @@
+{
+  "schemaVersion": 1,
+  "updatedAt": "2026-04-25T03:36:45.328Z",
+  "entries": [
+    "astro",
+    "audit-skills",
+    "design-taste-frontend",
+    "docs",
+    "frontend-api-integration-patterns",
+    "full-output-enforcement",
+    "gpt-taste",
+    "high-end-visual-design",
+    "hono",
+    "industrial-brutalist-ui",
+    "minimalist-ui",
+    "redesign-existing-projects",
+    "security/aws-compliance-checker",
+    "security/aws-iam-best-practices",
+    "security/aws-secrets-rotation",
+    "security/aws-security-audit",
+    "stitch-design-taste",
+    "sveltekit"
+  ]
+}

@@ -9,6 +9,8 @@ import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path';
 import { LandingModule } from './modules/landing/landing.module';
 import { UploadModule } from './modules/upload/upload.module';
+import { ScheduleModule } from '@nestjs/schedule';
+import { ScrapingModule } from './modules/scraping/scraping.module';
 
 @Module({
   imports: [
@@ -16,12 +18,14 @@ import { UploadModule } from './modules/upload/upload.module';
       rootPath: join(process.cwd(), 'public'),
       serveRoot: '/', // Los archivos en public serán accesibles desde la raíz
     }),
+    ScheduleModule.forRoot(),
     PrismaModule,
     LandingModule,
     UploadModule,
     AuthModule,
     ServicesModule,
     UsersModule,
+    ScrapingModule,
   ],
   controllers: [AppController],
   providers: [AppService],
